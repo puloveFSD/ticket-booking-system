@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: localdev
+  application:
+    name: Ticket Booking System
+

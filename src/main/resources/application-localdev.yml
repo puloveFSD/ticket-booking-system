@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/tbsdb
+    username: root
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: true
+
+applicationName: Ticket Booking System
+version: 1.0
