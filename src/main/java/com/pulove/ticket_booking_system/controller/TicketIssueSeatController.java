@@ -36,5 +36,10 @@ public class TicketIssueSeatController {
         ticketIssueSeatService.updateTicketIssueSeat(ticketIssueSeatDto, ticketIssueSeatIdDto);
         return ResponseEntity.ok("Ticket Issue Seat Updated");
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTicketIssueSeat(@PathVariable("id")Long ticketIssueSeatIdDto) {
+        ticketIssueSeatService.deleteTicketIssueSeat(ticketIssueSeatIdDto);
+        return ResponseEntity.ok("Ticket Issue Seat Deleted");
+    }
 
 }

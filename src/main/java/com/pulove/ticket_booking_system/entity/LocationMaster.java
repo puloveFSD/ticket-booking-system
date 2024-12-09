@@ -1,5 +1,6 @@
 package com.pulove.ticket_booking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="tbl_locationmaster")
 public class LocationMaster {
 

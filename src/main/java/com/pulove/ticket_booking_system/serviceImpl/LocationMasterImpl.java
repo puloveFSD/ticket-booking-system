@@ -46,6 +46,9 @@ public class LocationMasterImpl implements LocationMasterService {
 
     @Override
     public void deleteLocation(Long locationId) {
+        if (!locationMasterRepo.existsById(locationId)) {
+            throw new LocationNotFoundException("Location not found");
+        }
         locationMasterRepo.deleteById(locationId);
     }
 }

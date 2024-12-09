@@ -46,6 +46,9 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteUser(Long userId) {
+        if (userRepo.existsById(userId)) {
+            throw new UserNotFound("User with " + userId + " not found");
+        }
         userRepo.deleteById(userId);
     }
 

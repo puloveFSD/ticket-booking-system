@@ -36,7 +36,7 @@ public class TicketIssue {
     @Column(name = "issued_date")
     private Date issuedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "issued_by", referencedColumnName = "user_id")
     private User issuedBy;
 
@@ -46,11 +46,11 @@ public class TicketIssue {
     @Column(name = "contact_person_phone_number")
     private String contactPersonPhoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_id", referencedColumnName = "bus_id")
     private Bus bus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trip_id", referencedColumnName = "trip_id")
     private Trip trip;
 

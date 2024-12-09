@@ -19,7 +19,7 @@ public class Seat {
     @Column(name = "seat_number")
     private String seatNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_id", referencedColumnName = "bus_id")
     private Bus bus;
 

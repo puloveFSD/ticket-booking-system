@@ -1,5 +1,6 @@
 package com.pulove.ticket_booking_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "tbl_trip")
 public class Trip {
 
@@ -27,16 +29,19 @@ public class Trip {
     private LocalTime tripDepartureTime;
     @Column(name = "trip_arrival_time")
     private LocalTime tripArrivalTime;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "start_location_id", referencedColumnName = "location_id")
     private LocationMaster startLocationId;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destination_location_id", referencedColumnName = "location_id")
     private LocationMaster tripDestinationId;
+
     @Column(name = "ticket_price_per_person")
     private double ticketPricePerPerson;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bus_id", referencedColumnName = "bus_id")
     private Bus bus;
 

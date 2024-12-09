@@ -30,8 +30,7 @@ public class TripController extends BaseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getTripById(@PathVariable("id") Long tripId) {
-        tripService.getTripById(tripId);
-        return ResponseEntity.ok(getSuccessResponse(HttpStatus.OK.value(), "Trip retrieve successfully", tripService.getTripById(tripId)));
+        return ResponseEntity.ok(tripService.getTripById(tripId));
     }
 
     @DeleteMapping("/{id}")
@@ -45,6 +44,14 @@ public class TripController extends BaseController {
     public ResponseEntity<String> updateTripById(@RequestBody TripDto tripDto, @PathVariable("id") Long tripId) {
         tripService.updateTrip(tripDto, tripId);
         return ResponseEntity.ok("Trip Updated");
+    }
+
+    @GetMapping("/records")
+    public ResponseEntity<?> getTripsByLocation(
+            @RequestParam("startLocation") Long startLocationId,
+            @RequestParam("destination") Long destinationLocationId
+    ) {
+        return ResponseEntity.ok(tripService.getByStartLocationIdAndTripDestinationId(startLocationId, destinationLocationId));
     }
 
 }

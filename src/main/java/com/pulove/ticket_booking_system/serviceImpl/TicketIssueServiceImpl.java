@@ -40,13 +40,14 @@ public class TicketIssueServiceImpl implements TicketIssueService {
                 .bus(busId)
                 .trip(tripId)
                 .issuedBy(userId)
-                        .numberOfPassenger(dto.getNumberOfPassengerDto())
-                        .totalAmount(tripId.getTicketPricePerPerson() * dto.getNumberOfPassengerDto())
-                        .pickUpLocation(dto.getPickUpLocationDto())
-                        .issuedDate(new Date())
-                        .contactPerson(dto.getContactPersonDto())
-                        .contactPersonPhoneNumber(dto.getContactPersonPhoneNumberDto())
-                        .issuedBy(User.builder().userId(1l).build())
+                .numberOfPassenger(dto.getNumberOfPassengerDto())
+                .totalAmount(tripId.getTicketPricePerPerson() * dto.getNumberOfPassengerDto())
+                .pickUpLocation(dto.getPickUpLocationDto())
+                .issuedDate(new Date())
+                .contactPerson(dto.getContactPersonDto())
+                .contactPersonPhoneNumber(dto.getContactPersonPhoneNumberDto())
+                .totalAmount(dto.getTotalAmountDto() * dto.getNumberOfPassengerDto())
+                .issuedBy(User.builder().userId(1l).build())
                 .build());
 
         // save into ticket issue seat
@@ -55,12 +56,12 @@ public class TicketIssueServiceImpl implements TicketIssueService {
             Seat seat = seatRepo.findById(seatId).orElseThrow(() -> new SeatNotFoundException("Seat not found"));
             ticketIssueSeatList.add(TicketIssueSeat.builder()
                     .ticketIssue(ticketIssue)
-                            .seat(seat)
-                            .trip(tripId)
-                            .bus(busId)
+                    .seat(seat)
+                    .trip(tripId)
+                    .bus(busId)
                     .build());
         });
-        if(!ticketIssueSeatList.isEmpty())
+        if (!ticketIssueSeatList.isEmpty())
             ticketIssueSeatRepo.saveAll(ticketIssueSeatList);
     }
 
@@ -86,6 +87,7 @@ public class TicketIssueServiceImpl implements TicketIssueService {
         existingTicketIssue.setIssuedDate(ticketIssueDto.getIssuedDateDto());
         existingTicketIssue.setContactPerson(ticketIssueDto.getContactPersonDto());
         existingTicketIssue.setContactPersonPhoneNumber(ticketIssueDto.getContactPersonPhoneNumberDto());
+        existingTicketIssue.setTotalAmount(ticketIssueDto.getTotalAmountDto());
         TicketIssue ticketIssue = ticketIssueRepo.save(existingTicketIssue);
 
         // delete ticket issue seat by ticketIssueID
@@ -101,13 +103,16 @@ public class TicketIssueServiceImpl implements TicketIssueService {
                     .bus(busId)
                     .build());
         });
-        if(!ticketIssueSeatList.isEmpty())
+        if (!ticketIssueSeatList.isEmpty())
             ticketIssueSeatRepo.saveAll(ticketIssueSeatList);
 
     }
 
     @Override
     public void deleteTicket(Long ticketIdDto) {
+        if (!ticketIssueRepo.existsById(ticketIdDto)) {
+            throw new TicketNotFoundException("Ticket id " + ticketIdDto + " not found");
+        }
         ticketIssueRepo.deleteById(ticketIdDto);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class TicketIssueSeatServiceImpl implements TicketIssueSeatService {
@@ -42,6 +43,10 @@ public class TicketIssueSeatServiceImpl implements TicketIssueSeatService {
 
     @Override
     public void deleteTicketIssueSeat(Long ticketIssueSeatId) {
+        if (!ticketIssueSeatRepo.existsById(ticketIssueSeatId)) {
+            throw new TicketIssueSeatNotFoundException("Ticket Issue not found for id:" + ticketIssueSeatId);
+
+        }
         ticketIssueSeatRepo.deleteById(ticketIssueSeatId);
     }
 }

@@ -15,6 +15,7 @@ import com.pulove.ticket_booking_system.repository.BusRepo;
 import com.pulove.ticket_booking_system.repository.LocationMasterRepo;
 import com.pulove.ticket_booking_system.repository.TripRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -88,6 +89,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void deleteTrip(Long tripId) {
+        if (!tripRepo.existsById(tripId)) {
+            throw new TripNotFoundException("Trip not found with id: " + tripId);
+        }
         tripRepo.deleteById(tripId);
     }
 
@@ -132,4 +136,14 @@ public class TripServiceImpl implements TripService {
 //    }
 //
 
+
+    @Override
+    public List<Trip> getByStartLocationIdAndTripDestinationId(Long startId, Long destinationId) {
+        LocationMaster startLocation = locationMasterRepo.findById(startId).orElseThrow(() ->
+                new LocationNotFoundException("Start location not found"));
+
+        LocationMaster destination = locationMasterRepo.findById(destinationId).orElseThrow(() ->
+                new LocationNotFoundException("Destination location not found"));
+        return tripRepo.getByStartLocationIdAndTripDestinationId(startLocation, destination);
+    }
 }

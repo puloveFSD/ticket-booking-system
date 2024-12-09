@@ -15,7 +15,7 @@ public class TicketIssueController {
     @PostMapping
     public ResponseEntity<?> createTicket(@RequestBody TicketIssueDto ticketIssueDto) {
         ticketIssueService.createTicket(ticketIssueDto);
-        return ResponseEntity.ok("Ticket created");
+        return ResponseEntity.ok("created");
     }
 
     @PutMapping("/{id}")

@@ -8,13 +8,15 @@ public  class SeatMapper {
         return SeatDto.builder()
                 .setIdDto(seat.getSeatId())
                 .seatNumberDto(seat.getSeatNumber())
+                .busIdDto(seat.getBus().getBusId())
                 .build();
     }
 
-    public static Seat seatDtoToSeat(SeatDto seatDto) {
-        return Seat.builder()
-                .seatId(seatDto.getBusIdDto())
-                .seatNumber(seatDto.getSeatNumberDto())
-                .build();
-    }
+//    public static Seat seatDtoToSeat(SeatDto seatDto) {
+//        return Seat.builder()
+//                .seatId(seatDto.getBusIdDto())
+//                .seatNumber(seatDto.getSeatNumberDto())
+//
+//                .build();
+//    }
 }

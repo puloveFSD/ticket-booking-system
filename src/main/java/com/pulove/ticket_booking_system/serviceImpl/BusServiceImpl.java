@@ -20,7 +20,7 @@ public class BusServiceImpl implements BusService {
     @Override
     public void createBus(BusDto busDto) {
         Bus fetchData = busRepo.save(BusMapper.mapBusDtoToBus(busDto));
-         BusMapper.mapBusToBusDto(fetchData);
+        BusMapper.mapBusToBusDto(fetchData);
     }
 
     @Override
@@ -44,11 +44,14 @@ public class BusServiceImpl implements BusService {
         existingBus.setBusType(busDto.getBusTypeDto());
         existingBus.setBusOperatorName(busDto.getBusOperatorNameDto());
         existingBus.setBusTotalSeats(busDto.getBusTotalSeatsDto());
-       busRepo.save(existingBus);
+        busRepo.save(existingBus);
     }
 
     @Override
     public void deleteBus(Long busId) {
+        if (!busRepo.existsById(busId)) {
+            throw new BusNotFoundException("Bus not found with id " + busId);
+        }
         busRepo.deleteById(busId);
     }
 

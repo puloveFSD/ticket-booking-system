@@ -3,6 +3,7 @@ package com.pulove.ticket_booking_system.controller;
 import com.pulove.ticket_booking_system.Service.SeatService;
 import com.pulove.ticket_booking_system.dto.SeatDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class SeatController {
     @PostMapping
     public ResponseEntity<?> createSeat(@RequestBody SeatDto seatDto) {
         seatService.createSeat(seatDto);
-        return ResponseEntity.ok("Created");
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

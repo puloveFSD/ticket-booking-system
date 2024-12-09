@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TicketIssueDto {
     private Long ticketIdDto;
-    private Long numberOfPassengerDto;
+    private Long numberOfPassengerDto=0L;
     private double totalAmountDto;
     private String pickUpLocationDto;
     private Date issuedDateDto;
